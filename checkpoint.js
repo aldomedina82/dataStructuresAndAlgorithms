@@ -9,6 +9,21 @@ const { Queue, Node, Stack, LinkedList, BinarySearchTree } = require("./DS.js");
 //     Ahora la lista quedaría: Head --> [1] --> [4] --> [5]
 LinkedList.prototype.orderList = function () {
   // Tu código aca:
+
+  let current = this.head;
+
+  while (current.next) {
+    let inner = current.next;
+    while (inner) {
+      if (current.value > inner.value) {
+        let aux = inner.value;
+        inner.value = current.value;
+        current.value = aux;
+      }
+      inner = inner.next;
+    }
+    current = current.next;
+  }
 };
 
 // EJERCICIO 2
@@ -20,18 +35,24 @@ LinkedList.prototype.orderList = function () {
 LinkedList.prototype.reverseLinkedList = function () {
   // Tu código aca:
 
-  let array = [];
   let current = this.head;
-  while (current.next) {
-    array.unshift(current.value);
+  let count = 0;
+
+  while (current) {
+    count += 1;
     current = current.next;
   }
 
-  current = this.head;
-  while (current.next) {
-    current.value = array.shift();
-    current = current.next;
+  let list = new LinkedList();
+
+  while (count !== 0) {
+    list.add(this.remove());
+    count--;
   }
+
+  let aux = list.head;
+  this.head = aux;
+  list.head = null;
 };
 
 // EJERCICIO 3
@@ -42,15 +63,22 @@ LinkedList.prototype.reverseLinkedList = function () {
 //    Lista 2: Head --> [6] --> [15] --> [4] --> null
 //    joinLinkedList(linkedListOne, linkedListTwo)
 //    Head --> [2] --> [6] --> [8] --> [15] --> [22] --> [4] --> null
+
 function joinLinkedList(linkedListOne, linkedListTwo) {
   // Tu código aca:
 
+  let newLinkedList = new LinkedList();
   let current = linkedListOne.head;
-  while (current.next) {
+  let current2 = linkedListTwo.head;
+
+  while (current && current2) {
+    newLinkedList.add(current.value);
+    newLinkedList.add(current2.value);
     current = current.next;
+    current2 = current2.next;
   }
 
-  current.next = linkedListTwo;
+  return newLinkedList;
 }
 
 // ---- Arboles Binarios ----
@@ -65,7 +93,10 @@ function joinLinkedList(linkedListOne, linkedListTwo) {
 //      \
 //       5
 //  Debería retornarnos 2
-BinarySearchTree.prototype.searchMin = function () {};
+BinarySearchTree.prototype.searchMin = function () {
+  if (!this.left) return this.value;
+  return this.left.searchMin();
+};
 
 // EJERCICIO 5
 // Implementar la función createBST para que a partir de un array recibido como parametro
@@ -81,13 +112,13 @@ BinarySearchTree.prototype.searchMin = function () {};
 //       5
 function createBST(array) {
   // Tu código aca:
-  for (let i = 0; i < array.length; i++) {
-    if (i === 0) {
-      let tree = new BinarySearchTree(array[0]);
-    } else {
-      BinarySearchTree.insert(array[i]);
-    }
+
+  const newTree = new BinarySearchTree(array.shift());
+  while (array.length !== 0) {
+    newTree.insert(array.shift());
   }
+
+  return newTree;
 }
 
 // ----- Closures -----
@@ -98,11 +129,6 @@ function createBST(array) {
 // La función passport retorna una función isAllowed, la cual recibirá un arreglo de personas que quieren ingresar al país, y retornará un nuevo arreglo con los admitidos (aquellos que cumplan con la edad requerida).
 function passport(minAge, country) {
   // Tu código aca:
-
-    let persona [minAge, country]
-  return function isAllowed(array) {
-    
-  };
 }
 
 // ---- Recursión ----
