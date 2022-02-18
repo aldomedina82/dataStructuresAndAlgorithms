@@ -35,24 +35,14 @@ LinkedList.prototype.orderList = function () {
 LinkedList.prototype.reverseLinkedList = function () {
   // Tu código aca:
 
-  let current = this.head;
-  let count = 0;
-
-  while (current) {
-    count += 1;
-    current = current.next;
-  }
-
   let list = new LinkedList();
-
-  while (count !== 0) {
+  while (this.head) {
     list.add(this.remove());
-    count--;
   }
 
   let aux = list.head;
-  this.head = aux;
   list.head = null;
+  this.head = aux;
 };
 
 // EJERCICIO 3
@@ -129,6 +119,20 @@ function createBST(array) {
 // La función passport retorna una función isAllowed, la cual recibirá un arreglo de personas que quieren ingresar al país, y retornará un nuevo arreglo con los admitidos (aquellos que cumplan con la edad requerida).
 function passport(minAge, country) {
   // Tu código aca:
+
+  let age = minAge;
+  let entrance = country;
+
+  return function isAllowed(array) {
+    let newArray = [];
+
+    for (let i = 0; i > array.length; i++) {
+      if (array[i].age >= minAge && array[i].allowed.includes(country)) {
+        newArray.push(array[i]);
+      }
+    }
+    return newArray;
+  };
 }
 
 // ---- Recursión ----
