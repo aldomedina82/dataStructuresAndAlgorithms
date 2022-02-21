@@ -120,19 +120,7 @@ function createBST(array) {
 function passport(minAge, country) {
   // Tu código aca:
 
-  let age = minAge;
-  let entrance = country;
-
-  return function isAllowed(array) {
-    let newArray = [];
-
-    for (let i = 0; i > array.length; i++) {
-      if (array[i].age >= minAge && array[i].allowed.includes(country)) {
-        newArray.push(array[i]);
-      }
-    }
-    return newArray;
-  };
+  return function isAllowed(array) {};
 }
 
 // ---- Recursión ----
@@ -142,6 +130,14 @@ function passport(minAge, country) {
 // countDeep( [ 1, 2, 3, [ 4, [ 5, 6 ] ], 7, [ 8 ], 9] ) ----> Debería retornar 4
 function countDeep(arr) {
   // Tu código aca:
+
+  let count = 1;
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      count += countDeep(arr[i]);
+    }
+  }
+  return count;
 }
 
 // EJERCICIO 8
@@ -165,6 +161,12 @@ function countDeep(arr) {
 //  [Observar los tests para otros casos]
 var isAncestor = function (genealogyTree, ancestor, descendant) {
   // Tu código aca:
+  if (genealogyTree[ancestor].includes(descendant)) {
+    return true;
+  } else {
+  }
+
+  return false;
 };
 
 // ---- Queue ----
