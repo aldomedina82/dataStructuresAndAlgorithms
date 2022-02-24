@@ -161,11 +161,19 @@ function countDeep(arr) {
 //  [Observar los tests para otros casos]
 var isAncestor = function (genealogyTree, ancestor, descendant) {
   // Tu código aca:
-  if (genealogyTree[ancestor].includes(descendant)) {
-    return true;
-  } else {
+  if (genealogyTree[ancestor].length === 0) {
+    return false;
   }
 
+  for (let i = 0; i < genealogyTree[ancestor].length; i++) {
+    if (descendant === genealogyTree[ancestor][i]) {
+      return true;
+    } else {
+      if (isAncestor(genealogyTree, genealogyTree[ancestor][i], descendant)) {
+        return true;
+      }
+    }
+  }
   return false;
 };
 
