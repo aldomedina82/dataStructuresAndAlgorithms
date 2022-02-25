@@ -119,8 +119,17 @@ function createBST(array) {
 // La función passport retorna una función isAllowed, la cual recibirá un arreglo de personas que quieren ingresar al país, y retornará un nuevo arreglo con los admitidos (aquellos que cumplan con la edad requerida).
 function passport(minAge, country) {
   // Tu código aca:
-
-  return function isAllowed(array) {};
+  if (minAge < 18) return false;
+  return function isAllowed(array) {
+    let newArray = [];
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].age >= minAge && array[i].allowed.includes(country)) {
+        newArray.push(array[i]);
+      }
+    }
+    if (newArray.length === 0) return false;
+    return newArray;
+  };
 }
 
 // ---- Recursión ----
